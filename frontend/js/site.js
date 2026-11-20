@@ -2,10 +2,16 @@
 let photos = [], settings = {}, current = 'Todas', shown = [], lbIndex = 0;
 
 async function load() {
-  [photos, settings] = await Promise.all([
-    fetch('/api/photos').then(r => r.json()),
-    fetch('/api/settings').then(r => r.json())
-  ]);
+  const fallback = { tagline: 'Fotografía que guarda lo que importa', about: '', categories: ['Bodas', 'Retratos', 'Familia', 'Eventos', 'Comercial'] };
+  try {
+    const [p, st] = await Promise.all([
+      fetch('/api/photos').then(r => { if (!r.ok) throw new Error(); return r.json(); }),
+      fetch('/api/settings').then(r => { if (!r.ok) throw new Error(); return r.json(); })
+    ]);
+    photos = p; settings = st;
+  } catch {
+    photos = []; settings = fallback;
+  }
   render();
 }
 

@@ -12,11 +12,17 @@ if (db.mode === 'local') app.use('/uploads', express.static(cfg.UPLOAD_DIR, { ma
 app.use(express.static(cfg.FRONTEND_DIR, { extensions: ['html'] }));
 
 // API
+app.get('/api/health', (req, res) => res.json({ ok: true, storage: db.mode, vercel: !!process.env.VERCEL }));
+app.use('/api', (req, res, next) => {
+  if (process.env.VERCEL && !cfg.USE_BLOB) {
+    return res.status(503).json({ error: 'Falta conectar Vercel Blob (variable BLOB_READ_WRITE_TOKEN). Crea un Blob Store en Storage y haz Redeploy.' });
+  }
+  next();
+});
 app.use('/api', require('./routes/auth'));
 app.use('/api/photos', require('./routes/photos'));
 app.use('/api/settings', require('./routes/settings'));
 app.use('/api', require('./routes/messages'));
-app.get('/api/health', (req, res) => res.json({ ok: true, storage: db.mode }));
 
 // Páginas
 app.get('/admin', (req, res) => res.sendFile(path.join(cfg.FRONTEND_DIR, 'admin.html')));

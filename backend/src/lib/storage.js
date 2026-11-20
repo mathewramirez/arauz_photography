@@ -20,7 +20,7 @@ const rand = (n) => crypto.randomBytes(n).toString('hex');
 
 // ---------------- driver local ----------------
 function localDriver() {
-  fs.mkdirSync(cfg.UPLOAD_DIR, { recursive: true });
+  try { fs.mkdirSync(cfg.UPLOAD_DIR, { recursive: true }); } catch { /* disco de solo lectura */ }
   const file = (name) => path.join(cfg.DATA_DIR, name + '.json');
   return {
     async readJSON(name, fallback) {
