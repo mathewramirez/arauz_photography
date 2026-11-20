@@ -118,3 +118,6 @@ footer img{height:54px;margin:0 auto 12px;width:auto}
   .links a,.nav.onhero:not(.solid) .links a{color:var(--green)}
   .btn.ghost{margin:12px 0 0}
 }
+
+.more{text-align:center;margin-top:34px}
+.more:empty{display:none}

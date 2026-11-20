@@ -36,12 +36,24 @@ document.querySelectorAll('.tab').forEach(b => b.onclick = () => {
 
 // ---------- ajustes ----------
 async function loadSettings() {
-  settings = await api('/api/settings');
+  settings = await api('/api/settings?fresh=' + Date.now());
   const f = $('#setForm');
   for (const k of ['tagline', 'about', 'whatsapp', 'email', 'instagram', 'facebook', 'location']) f.elements[k].value = settings[k] || '';
   f.elements.categories.value = settings.categories.join(', ');
+  albumsDraft = { ...(settings.albums || {}) };
+  renderAlbums();
   fillCats();
 }
+// Campos de enlace de álbum, uno por categoría
+let albumsDraft = {};
+function renderAlbums() {
+  const cats = [...new Set($('#setForm').elements.categories.value.split(',').map(c => c.trim()).filter(Boolean))];
+  $('#albumFields').innerHTML = cats.map(c =>
+    `<div><label class="l">${esc(c)}</label><input type="url" data-cat="${esc(c)}" placeholder="https://drive.google.com/..." value="${esc(albumsDraft[c] || '')}"></div>`).join('');
+}
+$('#albumFields').addEventListener('input', e => { if (e.target.dataset.cat) albumsDraft[e.target.dataset.cat] = e.target.value; });
+$('#setForm').elements.categories.addEventListener('input', renderAlbums);
+
 function fillCats(extra) {
   const list = [...new Set([...settings.categories, ...(extra || [])])];
   const cur = $('#upCat').value;
@@ -53,6 +65,7 @@ $('#setForm').addEventListener('submit', async e => {
   const f = e.target.elements, body = {};
   for (const k of ['tagline', 'about', 'whatsapp', 'email', 'instagram', 'facebook', 'location']) body[k] = f[k].value;
   body.categories = f.categories.value.split(',');
+  body.albums = albumsDraft;
   try { settings = await api('/api/settings', { method: 'PUT', body }); fillCats(); drawPhotos(); toast('Ajustes guardados ✓'); } catch (err) { toast(err.message); }
 });
 
@@ -131,7 +144,7 @@ $('#upBtn').onclick = async () => {
 };
 
 // ---------- galería ----------
-async function loadPhotos() { photos = await api('/api/photos'); drawPhotos(); }
+async function loadPhotos() { photos = await api('/api/photos?fresh=' + Date.now()); drawPhotos(); }
 function drawPhotos() {
   $('#count').textContent = photos.length ? `(${photos.length})` : '';
   const cats = [...new Set([...(settings.categories || []), ...photos.map(p => p.category)])];

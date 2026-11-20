@@ -4,9 +4,11 @@ const db = require('../lib/storage');
 const wrap = require('../lib/wrap');
 const requireAdmin = require('../middleware/requireAdmin');
 const upload = require('../middleware/upload');
+const cache = require('../lib/cache');
 
 // Público: listar fotos (?category=Bodas)
 router.get('/', wrap(async (req, res) => {
+  cache(req, res);
   let photos = await db.getPhotos();
   if (req.query.category) photos = photos.filter(p => p.category === req.query.category);
   res.json(photos);

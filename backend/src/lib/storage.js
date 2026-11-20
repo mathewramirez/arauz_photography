@@ -12,7 +12,8 @@ const DEFAULT_SETTINGS = {
   about: 'Somos un estudio de fotografía dedicado a capturar momentos reales: bodas, retratos, familias y eventos. Cada sesión es una colaboración para que te veas y te sientas tú.',
   email: '', whatsapp: '', instagram: '', facebook: '',
   location: 'Costa Rica',
-  categories: ['Bodas', 'Retratos', 'Familia', 'Eventos', 'Comercial']
+  categories: ['Bodas', 'Retratos', 'Familia', 'Eventos', 'Comercial'],
+  albums: {}
 };
 
 const EXT = { 'image/jpeg': '.jpg', 'image/png': '.png', 'image/webp': '.webp', 'image/gif': '.gif' };

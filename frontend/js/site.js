@@ -22,7 +22,8 @@ function render() {
 
   // filtros
   const used = [...new Set(photos.map(p => p.category))];
-  const cats = [...settings.categories.filter(c => used.includes(c)), ...used.filter(c => !settings.categories.includes(c))];
+  const albums = settings.albums || {};
+  const cats = [...settings.categories.filter(c => used.includes(c) || albums[c]), ...used.filter(c => !settings.categories.includes(c))];
   $('#statPhotos').textContent = photos.length;
   $('#statCats').textContent = cats.length;
   $('#filters').innerHTML = ['Todas', ...cats].map(c => `<button class="chip ${c === current ? 'on' : ''}" data-c="${esc(c)}">${esc(c)}</button>`).join('');
@@ -59,6 +60,15 @@ function drawGrid() {
   $('#grid').innerHTML = shown.map((p, i) =>
     `<div class="card" data-i="${i}"><img loading="lazy" src="${esc(p.url)}" alt="${esc(p.title || p.category)}">${p.title ? `<div class="cap">${esc(p.title)}</div>` : ''}</div>`).join('');
   $('#empty').hidden = shown.length > 0;
+  drawMore();
+}
+
+// Botón "Ver más" hacia el álbum completo (Drive u otro) de la categoría elegida
+function drawMore() {
+  const url = (settings.albums || {})[current];
+  $('#more').innerHTML = url && current !== 'Todas'
+    ? `<a class="btn green" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Ver más fotos de ${esc(current)} →</a>`
+    : '';
 }
 
 $('#filters').addEventListener('click', e => {
