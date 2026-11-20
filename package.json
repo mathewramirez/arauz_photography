@@ -5,9 +5,12 @@
   "description": "Arauz Photography — sitio web y panel de administración",
   "scripts": {
     "start": "node backend/src/server.js",
-    "dev": "node --watch backend/src/server.js"
+    "dev": "node --watch backend/src/server.js",
+    "build": "npm --prefix frontend install && npm --prefix frontend run build"
   },
-  "engines": { "node": ">=18" },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@vercel/blob": "^2.0.0",
     "express": "^4.19.2",

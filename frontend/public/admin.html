@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Panel — Arauz Photography</title>
+<link rel="icon" href="/img/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/admin.css">
+
+</head>
+<body>
+
+<div class="login" id="loginView" hidden>
+  <form class="box" id="loginForm">
+    <img src="/img/logo.png" alt="">
+    <h1>Arauz Photography</h1>
+    <p>Panel de administración</p>
+    <input type="password" id="pw" placeholder="Contraseña" autocomplete="current-password" required autofocus>
+    <button class="btn green" style="width:100%;margin-top:14px">Entrar</button>
+    <div class="err" id="loginErr"></div>
+    <a href="/" style="font-size:.82rem;color:var(--muted)">← Volver al sitio</a>
+  </form>
+</div>
+
+<div id="appView" hidden>
+  <header class="top">
+    <div class="wrap">
+      <a href="/" class="brand"><img src="/img/logo.png" alt=""><span>Arauz Photography</span></a>
+      <nav class="tabs">
+        <button class="tab on" data-t="fotos">Fotos</button>
+        <button class="tab" data-t="mensajes">Mensajes<span class="badge" id="badge" hidden>0</span></button>
+        <button class="tab" data-t="ajustes">Ajustes</button>
+      </nav>
+      <div><a class="s" href="/" target="_blank">Ver sitio</a> · <button class="s" id="logout">Salir</button></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- FOTOS -->
+    <div id="t-fotos">
+      <div class="panel">
+        <h2>Subir fotos</h2>
+        <div class="drop" id="drop">
+          <b>Arrastra tus fotos aquí</b> o haz clic para elegirlas
+          <small>JPG, PNG, WEBP · hasta 30 a la vez · se optimizan automáticamente</small>
+          <input type="file" id="file" accept="image/*" multiple hidden>
+        </div>
+        <div class="queue" id="queue"></div>
+        <div class="up-opts">
+          <div><label class="l">Categoría</label><select id="upCat"></select></div>
+          <div><label class="l">Título (opcional, para todas)</label><input id="upTitle" maxlength="120" placeholder="Ej. Boda Ana & Luis"></div>
+          <button class="btn green" id="upBtn" disabled>Subir</button>
+        </div>
+        <div class="bar" id="bar"><i></i></div>
+      </div>
+
+      <div class="panel">
+        <h2>Tu galería <span id="count" style="font-size:1rem;color:var(--muted)"></span></h2>
+        <p style="color:var(--muted);font-size:.9rem;margin-bottom:16px">Marca con ⭐ las fotos que quieras en la portada. Los cambios de título y categoría se guardan solos.</p>
+        <div class="mgrid" id="mgrid"></div>
+      </div>
+    </div>
+
+    <!-- MENSAJES -->
+    <div id="t-mensajes" hidden>
+      <div class="panel"><h2>Mensajes de clientes</h2><div id="msgs"></div></div>
+    </div>
+
+    <!-- AJUSTES -->
+    <div id="t-ajustes" hidden>
+      <div class="panel">
+        <h2>Ajustes del sitio</h2>
+        <form class="f2" id="setForm">
+          <div class="full"><label class="l">Frase de portada</label><input name="tagline"></div>
+          <div class="full"><label class="l">Sobre nosotros</label><textarea name="about" rows="5"></textarea></div>
+          <div><label class="l">WhatsApp (con código de país)</label><input name="whatsapp" placeholder="+506 8888 8888"></div>
+          <div><label class="l">Correo</label><input name="email" type="email"></div>
+          <div><label class="l">Instagram (usuario)</label><input name="instagram" placeholder="arauzphotography"></div>
+          <div><label class="l">Facebook (enlace)</label><input name="facebook" placeholder="https://facebook.com/..."></div>
+          <div><label class="l">Ubicación</label><input name="location"></div>
+          <div><label class="l">Categorías (separadas por coma)</label><input name="categories"></div>
+          <div class="full">
+            <label class="l">Álbum completo por categoría (enlace de Google Drive u otro, opcional)</label>
+            <div class="f2" id="albumFields" style="gap:10px"></div>
+          </div>
+          <div class="full"><button class="btn green">Guardar ajustes</button></div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<script src="/js/utils.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>

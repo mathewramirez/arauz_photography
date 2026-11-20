@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arauz Photography — Estudio de fotografía</title>
+<meta name="description" content="Arauz Photography: estudio de fotografía de bodas, retratos, familias y eventos.">
+<meta name="theme-color" content="#17402f">
+<link rel="icon" href="/img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="nav onhero" id="nav">
+  <div class="wrap">
+    <a href="#inicio" class="brand"><img src="/img/logo-light.png" alt="" id="navLogo"><span>Arauz Photography</span></a>
+    <button class="burger" id="burger" aria-label="Menú"><i></i><i></i><i></i></button>
+    <nav class="links" id="links">
+      <a href="#portafolio">Portafolio</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#contacto" class="btn-sm">Reservar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio" style="padding:0">
+  <div class="hero-bg" id="heroA"></div>
+  <div class="hero-bg" id="heroB"></div>
+  <div class="hero-in">
+    <img src="/img/logo-light.png" alt="Logo Arauz Photography">
+    <h1>Arauz Photography</h1>
+    <p id="tagline">Fotografía que guarda lo que importa</p>
+    <a href="#portafolio" class="btn">Ver portafolio</a>
+    <a href="#contacto" class="btn ghost">Reservar sesión</a>
+  </div>
+  <div class="scroll">Desliza ↓</div>
+</section>
+
+<section id="portafolio">
+  <div class="wrap">
+    <div class="center reveal">
+      <div class="eyebrow">Portafolio</div>
+      <h2>Momentos que cuentan historias</h2>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>Pronto verás aquí nuestro trabajo. ✨</div>
+  </div>
+</section>
+
+<section class="about" id="nosotros">
+  <div class="wrap about-grid">
+    <div class="about-logo reveal"><img src="/img/logo.png" alt="Arauz Photography"></div>
+    <div class="reveal">
+      <div class="eyebrow">Sobre nosotros</div>
+      <h2>Detrás de la cámara</h2>
+      <p id="about"></p>
+      <div class="stats">
+        <div><b id="statPhotos">0</b><span>Fotos</span></div>
+        <div><b id="statCats">0</b><span>Categorías</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="center reveal">
+      <div class="eyebrow">Servicios</div>
+      <h2>Lo que hacemos</h2>
+    </div>
+    <div class="services" id="services"></div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <div class="eyebrow">Contacto</div>
+      <h2>Reservemos tu sesión</h2>
+      <p>Cuéntanos qué tienes en mente y te respondemos lo antes posible.</p>
+      <ul class="info" id="info" style="margin-top:24px"></ul>
+    </div>
+    <form class="cf reveal" id="cf">
+      <div class="row">
+        <input name="name" placeholder="Tu nombre" required maxlength="100">
+        <input name="contact" placeholder="Correo o WhatsApp" required maxlength="120">
+      </div>
+      <div class="row">
+        <select name="type" id="typeSel"></select>
+        <input name="date" placeholder="Fecha aproximada (opcional)" maxlength="40">
+      </div>
+      <textarea name="message" rows="5" placeholder="Cuéntanos sobre tu sesión o evento" required maxlength="3000"></textarea>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off">
+      <button class="btn" type="submit">Enviar mensaje</button>
+      <div id="cfMsg" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <img src="/img/logo-light.png" alt="">
+  <div>© <span id="yr"></span> Arauz Photography · Todos los derechos reservados</div>
+</footer>
+
+<div class="lb" id="lb">
+  <button class="x" aria-label="Cerrar">×</button>
+  <button class="p" aria-label="Anterior">‹</button>
+  <img id="lbImg" alt="">
+  <button class="n" aria-label="Siguiente">›</button>
+  <div class="t" id="lbT"></div>
+</div>
+
+<script src="/js/site.js"></script>
+</body>
+</html>
