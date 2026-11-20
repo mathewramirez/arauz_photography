@@ -53,7 +53,7 @@ function blobDriver() {
   return {
     async readJSON(name, fallback) {
       try {
-        const r = await get(`data/${secretName(name)}.json`, { access: 'public', useCache: false });
+        const r = await get(`data/${secretName(name)}.json`, { access: 'public', useCache: false, token: cfg.BLOB_TOKEN });
         if (!r || !r.stream) return fallback;
         return JSON.parse(await new Response(r.stream).text());
       } catch { return fallback; }
@@ -61,17 +61,17 @@ function blobDriver() {
     async writeJSON(name, data) {
       await put(`data/${secretName(name)}.json`, JSON.stringify(data), {
         access: 'public', addRandomSuffix: false, allowOverwrite: true,
-        contentType: 'application/json', cacheControlMaxAge: 60
+        contentType: 'application/json', cacheControlMaxAge: 60, token: cfg.BLOB_TOKEN
       });
     },
     async saveImage(buffer, mimetype) {
       const blob = await put(`photos/${rand(8)}${EXT[mimetype]}`, buffer, {
-        access: 'public', addRandomSuffix: true, contentType: mimetype
+        access: 'public', addRandomSuffix: true, contentType: mimetype, token: cfg.BLOB_TOKEN
       });
       return { file: blob.pathname, url: blob.url };
     },
     async deleteImage(photo) {
-      try { await del(photo.url); } catch { /* ya no existe */ }
+      try { await del(photo.url, { token: cfg.BLOB_TOKEN }); } catch { /* ya no existe */ }
     }
   };
 }
