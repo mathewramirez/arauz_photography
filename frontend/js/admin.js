@@ -5,7 +5,7 @@ let settings = {}, photos = [], queue = []; // queue: {file, url, blob?, status}
 async function api(url, opts = {}) {
   const r = await fetch(url, { headers: opts.body && !(opts.body instanceof FormData) ? { 'Content-Type': 'application/json' } : {}, ...opts,
     body: opts.body && !(opts.body instanceof FormData) ? JSON.stringify(opts.body) : opts.body });
-  if (r.status === 401) { showLogin(); throw new Error('Sesión expirada'); }
+  if (r.status === 401 && !url.includes('/api/login')) { showLogin(); throw new Error('Sesión expirada'); }
   const j = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(j.error || 'Error');
   return j;

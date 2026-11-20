@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const BACKEND_DIR = path.resolve(__dirname, '..');
 const DATA_DIR = path.resolve(process.env.DATA_DIR || path.join(BACKEND_DIR, 'data'));
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'arauz2026';
+const ADMIN_PASSWORD = (process.env.ADMIN_PASSWORD || '').trim() || 'arauz2026';
 const SESSION_SECRET = process.env.SESSION_SECRET ||
   crypto.createHash('sha256').update('arauz-' + ADMIN_PASSWORD).digest('hex');
 
@@ -24,7 +24,7 @@ module.exports = {
   DATA_DIR,
   UPLOAD_DIR: path.join(DATA_DIR, 'uploads'),
   ADMIN_PASSWORD,
-  usingDefaultPassword: !process.env.ADMIN_PASSWORD,
+  usingDefaultPassword: !(process.env.ADMIN_PASSWORD || '').trim(),
   SESSION_SECRET,
   SESSION_DAYS: 7,
   MAX_UPLOAD_MB: 30,

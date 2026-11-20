@@ -14,7 +14,7 @@ const blocked = (ip) => {
 
 router.post('/login', (req, res) => {
   if (blocked(req.ip)) return res.status(429).json({ error: 'Demasiados intentos. Espera unos minutos.' });
-  const given = Buffer.from(String(req.body.password || ''));
+  const given = Buffer.from(String(req.body.password || '').trim());
   const real = Buffer.from(cfg.ADMIN_PASSWORD);
   if (!(given.length === real.length && crypto.timingSafeEqual(given, real))) {
     attempts.get(req.ip).push(Date.now());
